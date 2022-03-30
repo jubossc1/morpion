@@ -1,4 +1,4 @@
-from fonctions import *
+from fonctions_morpion import *
 import os
 
 clear = lambda: os.system('clear')
