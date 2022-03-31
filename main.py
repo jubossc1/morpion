@@ -1,4 +1,4 @@
-from fonctions_morpion import *
+from fonctions import *
 import os
 
 clear = lambda: os.system('clear')
@@ -24,14 +24,13 @@ max_points = nouvelle_partie()
 end = False
 
 while True:
-    clear()
     grille = [[" "] * 3 for loop in range(3)]
     while not end:
         # print(grille)
         affichage(grille)
         print(f"Au tour de {j1}")
-        x = int(input("Sur quelle ligne voulez-vous placer votre croix ?\n"))
-        y = int(input("Sur quelle colonne ?\n"))
+        place = int(input("Ou voulez-vous placer votre croix?"))
+        x, y = convertisseur_de_coup(place)
         grille = coup(grille, x, y, J1, False)
         clear()
         if not tableau_rempli(grille):
@@ -45,8 +44,8 @@ while True:
         affichage(grille)
         print(f"Au tour de {j2}")
         if not IA:
-            x = int(input("Sur quelle ligne voulez-vous placer votre croix ?\n"))
-            y = int(input("Sur quelle colonne ?\n"))
+            place = int(input("Ou voulez-vous placer votre cercle?"))
+            x, y = convertisseur_de_coup(place)
         else:
             x, y = coup_IA(grille)
         
