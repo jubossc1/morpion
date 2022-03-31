@@ -37,16 +37,31 @@ def nouvelle_partie():
         print("Cela n'existe pas, nous devons appeler la BAP")
         exit()
 
+def convertisseur_de_coup(a):
+    if a < 4:
+        x = 1
+        y = a
+    
+    elif a < 7:
+        x = 2
+        y = a - 3
+    
+    else:
+        x = 3
+        y = a - 6
+    print(x, y)
+    return x, y
+
 def coup(tab, x, y, j, IA):
     ''' Permet de mettre le coup joué par un joueur au bon endroit de la grille. A besoin  du tableau actuel de la partie, du coup joué et du joueur. Renvoi le tableau actualisé comme sortie. '''
 
     x -= 1
     y -= 1
-    if x > 2 or y > 2:
+    if x > 2 or y > 2 or x < 0 or y < 0:
         if not IA:
             print("Ce coup n'est pas valable, veuillez refaire votre coup.")
-            x = int(input(""))
-            y = int(input(""))
+            place = int(input())
+            x, y = convertisseur_de_coup(place)
         else:
             x = randint(1,3)
             y = randint(1, 3)
@@ -55,8 +70,8 @@ def coup(tab, x, y, j, IA):
     elif tab[x][y] != " ":
         if not IA:
             print("Cette case est déjà occupée, veuillez rejouer.")
-            x = int(input(""))
-            y = int(input(""))
+            place = int(input())
+            x, y = convertisseur_de_coup(place)
         else:
             x = randint(1,3)
             y = randint(1, 3)
@@ -71,7 +86,7 @@ def coup(tab, x, y, j, IA):
 
 
 def tableau_rempli(tab):
-    """Prend la grille de morpion comme entrée et renvoi True si elle est pleine et False si l'inverse."""
+    """Prend la grille de morpion comme entrée et renvoie True si elle est pleine et False si l'inverse."""
     a = False
     for loop in range(3):
         for unloop in range(3):
@@ -80,7 +95,7 @@ def tableau_rempli(tab):
     return a
 
 def victoire(tab):
-    """Prends comme entrée la grille de morpion. Renvoi True si trois meme symboles sont aligné et False si ce n'est pas le cas."""
+    """Prend comme entrée la grille de morpion. Renvoi True si trois meme symboles sont aligné et False si ce n'est pas le cas."""
     for loop in range(3):
         a = 0
         b = tab[loop][0]
